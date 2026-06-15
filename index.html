@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A:SSU (어슈) - 숭실대 제휴 혜택 통합 관리 플랫폼</title>
+    <link rel="icon" type="image/png" href="images/assu_app_logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --primary-color: #007aff;
+            --primary-dark: #0056b3;
+            --bg-gradient: linear-gradient(135deg, #00c6ff 0%, #007aff 100%);
+            --dark-bg: #121212;
+            --card-bg: #1e1e1e;
+            --text-main: #ffffff;
+            --text-muted: #aaaaaa;
+            --text-dark: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            display: block;
+            width: 112px;
+            height: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555555;
+            font-weight: 500;
+            margin-left: 30px;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-download-nav {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .btn-download-nav:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            color: white;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            width: 100%;
+            padding: 0 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .hero-tagline {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            opacity: 0.9;
+        }
+
+        .hero-title {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.85;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-app-store {
+            background-color: #111;
+            color: white;
+        }
+
+        .btn-app-store:hover {
+            color: white;
+        }
+
+        .hero-mockup {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-app-image {
+            width: min(100%, 560px);
+            filter: drop-shadow(0 28px 45px rgba(0,0,0,0.35));
+        }
+
+        /* --- About/Problem/Vision Section (Dark Theme) --- */
+        .about-dark {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .section-tag {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .about-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .about-subtitle {
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            font-size: 16px;
+            font-weight: 300;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1minmax(250px, 1fr));
+            max-width: 1000px;
+            margin: 0 auto;
+            gap: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 40px 20px;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-main {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .stat-title {
+            font-size: 18px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .stat-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Features Section --- */
+        .features {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .features-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 100px;
+            gap: 50px;
+        }
+
+        .feature-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .feature-info {
+            flex: 1;
+            max-width: 500px;
+        }
+
+        .feature-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111;
+        }
+
+        .feature-info p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .feature-bullets {
+            list-style: none;
+        }
+
+        .feature-bullets li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .feature-bullets li i {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            color: var(--primary-color);
+        }
+
+        .feature-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-screen-image {
+            width: min(100%, 430px);
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 18px 30px rgba(0,0,0,0.12));
+        }
+
+        /* --- CTA Section --- */
+        .cta {
+            background: var(--bg-gradient);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #111;
+            color: #777;
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 968px) {
+            .hero-container, .feature-row, .feature-row:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text {
+                margin-bottom: 50px;
+            }
+            .feature-info {
+                max-width: 100%;
+            }
+            .feature-bullets li {
+                text-align: left;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            nav {
+                display: none; /* Simplification for code single page */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo" aria-label="A:SSU 홈으로 이동">
+                <img src="images/assu_app_logo.png" alt="A:SSU">
+            </a>
+            <nav>
+                <a href="#about">소개</a>
+                <a href="#students">학생 혜택</a>
+                <a href="#merchants">제휴 업체</a>
+                <a href="#admin">학생회 관리자</a>
+                <a href="https://play.google.com/store/apps/details?id=com.ssu.assu" target="_blank" rel="noopener noreferrer" class="btn-download-nav">앱 다운로드</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-text">
+                <p class="hero-tagline">똑똑하게 제휴를 누리고 싶은 당신에게!</p>
+                <h1 class="hero-title">A:SSU<br>Associate with You!</h1>
+                <p class="hero-description">
+                    에타 뒤지고 인스타 스크롤 내릴 필요 없이,<br>
+                    터치 한 번으로 내 주변의 모든 학교 제휴 혜택을 한눈에 찾아보세요.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://play.google.com/store/apps/details?id=com.ssu.assu" target="_blank" rel="noopener noreferrer" class="btn-main">
+                        <i class="fab fa-google-play"></i> Google Play 다운로드
+                    </a>
+                    <a href="#" class="btn-main btn-app-store" onclick="alert('2026 2학기 운영 준비중!'); return false;">
+                        <i class="fab fa-apple"></i> App Store 다운로드
+                    </a>
+                </div>
+            </div>
+            <div class="hero-mockup">
+                <img src="images/main.png" alt="A:SSU 앱 메인 화면 목업" class="hero-app-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="about-dark" id="about">
+        <span class="section-tag">About A:SSU</span>
+        <h2 class="about-title">숭실대학교 제휴 혜택,<br>이제 앱 하나로 관리할 수 있습니다!</h2>
+        <p class="about-subtitle">
+            그동안 흩어져 있던 단과대, 학부별 제휴 혜택과 불확실했던 마케팅 효과 분석을<br>
+            데이터 기반의 통합 플랫폼 생태계로 혁신합니다.
+        </p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-title">단 3초</div>
+                <div class="stat-main">스캔 완료</div>
+                <div class="stat-desc">귀찮은 실물 학생증 제시 없이, QR 코드 하나로 내 손안에 혜택이 들어옵니다!</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">조작 0번</div>
+                <div class="stat-main">인증 스트레스 제로</div>
+                <div class="stat-desc">포스기 찍으랴 바쁜 사장님을 위해, 복잡한 앱 조작이 필요 없는 1초 간편 인증 구조를 실현했습니다.</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">100%</div>
+                <div class="stat-main">데이터 기반 관리</div>
+                <div class="stat-desc">"이번 달 우리 매장에 학생이 얼마나 왔을까?" 감으로만 판단하던 깜깜이 제휴를 완벽한 숫자로 증명합니다.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="features-header">
+            <span class="section-tag">Key Features</span>
+            <h2>세 가지 유저 맞춤형 핵심 기능</h2>
+        </div>
+
+        <div class="feature-row" id="students">
+            <div class="feature-info">
+                <span class="section-tag" style="color: #4cd964;">FOR STUDENTS</span>
+                <h3>몰라서 놓치는 혜택이 없도록<br>우리 학교 제휴 모아보기</h3>
+                <p>매번 에타 게시판이나 인스타 피드를 검색해 볼 필요가 없습니다. 소속 단체만 인증하면 주변 상권의 제휴 지도가 즉시 펼쳐집니다.</p>
+                <ul class="feature-bullets">
+                    <li><i class="fas fa-check-circle"></i> 지도 기반 내 주변 제휴 매장 위치 탐색</li>
+                    <li><i class="fas fa-check-circle"></i> 실시간 QR 코드 생성을 통한 1초 인증</li>
+                    <li><i class="fas fa-check-circle"></i> 원하는 신규 제휴 업체를 학생회에 다이렉트 건의</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <img src="images/func_student.png" alt="학생용 제휴 매장 지도 탐색 화면" class="app-screen-image">
+            </div>
+        </div>
+
+        <div class="feature-row" id="merchants">
+            <div class="feature-info">
+                <span class="section-tag" style="color: #ffcc00;">FOR MERCHANTS</span>
+                <h3>바쁜 장사 시간 방해 없이,<br>확실한 제휴 마케팅 효과</h3>
+                <p>수동으로 일일이 확인하던 학생증 인증 방식에서 완벽히 벗어나세요. 장사가 끝나면 이번 달 제휴 효과를 데이터 대시보드로 확실하게 증명해 드립니다.</p>
+                <ul class="feature-bullets">
+                    <li><i class="fas fa-check-circle"></i> 제휴 인증 요청 시 주방/포스로 즉시 사운드 알림 전송</li>
+                    <li><i class="fas fa-check-circle"></i> 메뉴별 주문 분석 및 정확한 마케팅 매출 기여도(%) 산출</li>
+                    <li><i class="fas fa-check-circle"></i> 학생회로부터 수신된 제휴 제안서 앱 내에서 바로 계약 체결</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <img src="images/func_partner.png" alt="제휴업체용 제휴 이용 데이터 대시보드 화면" class="app-screen-image">
+            </div>
+        </div>
+
+        <div class="feature-row" id="admin">
+            <div class="feature-info">
+                <span class="section-tag">FOR STUDENT COUNCIL</span>
+                <h3>감으로 하던 오프라인 제휴 영업,<br>이제는 정확한 데이터로 똑똑하게</h3>
+                <p>깜깜이였던 제휴 이용률을 실시간으로 트래킹하고, 학우들의 수요 데이터를 바탕으로 다음 학기 만족도 높은 제휴 라인업을 기획하세요.</p>
+                <ul class="feature-bullets">
+                    <li><i class="fas fa-check-circle"></i> 가입자 추이, 제휴 이용률, 인기 상권 지표 시각화</li>
+                    <li><i class="fas fa-check-circle"></i> 채팅 모듈을 활용한 제안서 작성, 조건 조율, 협약 체결 통합 관리</li>
+                    <li><i class="fas fa-check-circle"></i> 여러 학우가 동시에 혜택을 받는 그룹 QR 인증 세션 제어</li>
+                </ul>
+            </div>
+            <div class="feature-visual">
+                <img src="images/func_admin.png" alt="학생회 관리자용 제휴 이용 현황 대시보드 화면" class="app-screen-image">
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="download">
+        <h2>지금 바로 스마트한 대학 생활을 시작하세요</h2>
+        <p>A:SSU(어슈)는 단순한 정보 제공 앱을 넘어, 학생회와 자영업자가 직접 제휴를 협의하고 상생하는 대학가 핵심 인프라 플랫폼입니다.</p>
+        <div class="hero-buttons" style="justify-content: center;">
+            <a href="https://play.google.com/store/apps/details?id=com.ssu.assu" target="_blank" rel="noopener noreferrer" class="btn-main" style="color: var(--primary-dark);">
+                <i class="fab fa-google-play"></i> Android 앱 설치하기
+            </a>
+            <a href="#" class="btn-main btn-app-store" onclick="alert('2026 2학기 운영 준비중!'); return false;">
+                <i class="fab fa-apple"></i> App Store 다운로드
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Team ASSU. All Rights Reserved.</p>
+        <p style="font-size:12px; color:#555;">본 서비스는 숭실대학교 학생, 주변 소상공인, 학생회를 잇는 통합 제휴 플랫폼입니다.</p>
+    </footer>
+
+</body>
+</html>
