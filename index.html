@@ -194,8 +194,13 @@
         .about-dark {
             background-color: var(--dark-bg);
             color: var(--text-main);
-            padding: 100px 20px;
+            min-height: 100vh;
+            padding: 120px 20px 120px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .section-tag {
@@ -218,23 +223,23 @@
         .about-subtitle {
             color: var(--text-muted);
             max-width: 700px;
-            margin: 0 auto 60px auto;
+            margin: 0 auto 48px auto;
             font-size: 16px;
             font-weight: 300;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1minmax(250px, 1fr));
-            max-width: 1000px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            width: min(100%, 1080px);
             margin: 0 auto;
-            gap: 30px;
+            gap: 24px;
         }
 
         .stat-card {
             background-color: var(--card-bg);
             border-radius: 16px;
-            padding: 40px 20px;
+            padding: 34px 20px;
             transition: transform 0.3s;
         }
 
@@ -243,7 +248,7 @@
         }
 
         .stat-main {
-            font-size: 40px;
+            font-size: 30px;
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 10px;
@@ -257,14 +262,14 @@
         }
 
         .stat-desc {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--text-muted);
             font-weight: 300;
         }
 
         /* --- Features Section --- */
         .features {
-            padding: 100px 20px;
+            padding: 100px 20px 0;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -284,8 +289,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 100px;
+            min-height: calc(100vh - 80px);
+            margin-bottom: 0;
             gap: 50px;
+            scroll-margin-top: 80px;
         }
 
         .feature-row:nth-child(even) {
@@ -349,8 +356,8 @@
             background: var(--bg-gradient);
             color: white;
             text-align: center;
-            min-height: 460px;
-            padding: 140px 20px;
+            min-height: 100vh;
+            padding: 80px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -406,6 +413,13 @@
 
         /* --- Responsive Design --- */
         @media (max-width: 968px) {
+            .hero {
+                padding-top: 128px;
+                align-items: flex-start;
+            }
+            .hero-container {
+                padding-top: 24px;
+            }
             .hero-container, .feature-row, .feature-row:nth-child(even) {
                 flex-direction: column;
                 text-align: center;
@@ -553,7 +567,7 @@
 
     <section class="cta" id="download">
         <h2>지금 바로 스마트한 대학 생활을 시작하세요</h2>
-        <p>A:SSU(어슈)는 단순한 정보 제공 앱을 넘어, 학생회와 자영업자가 직접 제휴를 협의하고 상생하는 대학가 핵심 인프라 플랫폼입니다.</p>
+        <p>A:SSU(어슈)는 단순한 제휴 정보 제공 앱을 넘어, 학생회와 자영업자가 직접 제휴를 협의하고 상생하는 대학가 핵심 플랫폼입니다.</p>
         <div class="hero-buttons" style="justify-content: center;">
             <a href="https://play.google.com/store/apps/details?id=com.ssu.assu" target="_blank" rel="noopener noreferrer" class="btn-main" style="color: var(--primary-dark);">
                 <i class="fab fa-google-play"></i> Android 앱 설치하기
